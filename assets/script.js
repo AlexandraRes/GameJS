@@ -1,9 +1,10 @@
 // Основные переменные
-let playerName = ''; 
+let playerName = '';
 let score = 0;
 let highScore = 0;
 let sequence = [];
 let userSequence = [];
+let isPlaying = false;
 
 // Получаем элементы модального окна и игры
 const modal = document.getElementById('modal');
@@ -22,8 +23,8 @@ const sounds = {
     red: new Audio('/assets/sounds/red.mp3'),
     yellow: new Audio('/assets/sounds/yellow.mp3'),
     blue: new Audio('/assets/sounds/blue.mp3'),
-    click: new Audio('/assets/sounds/click.mp3'), 
-    start: new Audio('/assets/sounds/start-game.mp3') 
+    click: new Audio('/assets/sounds/click.mp3'),
+    start: new Audio('/assets/sounds/start-game.mp3')
 };
 
 // Загружаем таблицу пользователей из localStorage или создаем новую, если ее нет
@@ -56,15 +57,15 @@ if (localStorage.getItem('currentUser')) {
 }
 
 // Обработка нажатия на кнопку "Submit"
-submitNameButton.addEventListener('click', function() {
+submitNameButton.addEventListener('click', function () {
     const name = nameInput.value.trim();
-    
+
     if (name === "") {
         showError();
     } else {
         playerName = name;
         localStorage.setItem('currentUser', playerName);
-        playerNameDisplay.textContent = playerName; 
+        playerNameDisplay.textContent = playerName;
         if (!usersTable[playerName]) {
             usersTable[playerName] = { score: 0, highScore: 0 };
             welcomeMessage.textContent = "Рады с вами познакомиться, " + playerName + "!";
@@ -77,9 +78,10 @@ submitNameButton.addEventListener('click', function() {
         closeModal();
         document.getElementById('current-score').textContent = score;
         document.getElementById('high-score').textContent = highScore;
-        initGame();
     }
 });
+
+startGameButton.addEventListener('click', startGame);
 
 // Функция для показа ошибки при пустом имени
 function showError() {
@@ -93,20 +95,16 @@ function closeModal() {
     gameContainer.style.display = 'block';
 }
 
-// Логика игры
-function initGame() {
-    startGameButton.removeEventListener('click', startGame); 
-    startGameButton.addEventListener('click', startGame); 
-}
-
 // Запуск игры
 function startGame() {
-    resetGame(); 
+    isPlaying = true;
+    startGameButton.removeEventListener('click', startGame);
+    resetGame();
     sounds.start.play();
     setTimeout(() => {
         nextRound();
         playSequence();
-    }, 1000); 
+    }, 1000);
 }
 
 // Функция сброса игры
@@ -121,7 +119,6 @@ function resetGame() {
 function nextRound() {
     let nextColor = ['green', 'red', 'yellow', 'blue'][Math.floor(Math.random() * 4)];
     sequence.push(nextColor);
-    localStorage.setItem('sequence', JSON.stringify(sequence)); 
 }
 
 // Проигрывание последовательности цветов
@@ -138,29 +135,28 @@ function playSequence() {
 
 // Проигрывание звука и подсветка цвета
 function flashButton(color) {
-    const button = document.getElementById(color);
-    button.classList.add('active');
-    sounds[color].play(); 
-    setTimeout(() => {
-        button.classList.remove('active'); 
-    }, 500);
+    sounds[color].play();
 }
 
 // Обработка кликов на цветные кнопки
 document.querySelectorAll('.color-button').forEach(button => {
     button.addEventListener('click', (e) => {
         const selectedColor = e.target.id;
-        sounds.click.play(); 
+        sounds.click.play();
         userSequence.push(selectedColor);
-        flashButton(selectedColor);
         checkUserSequence();
     });
 });
 
 // Проверка последовательности пользователя
 function checkUserSequence() {
+    if (!isPlaying) {
+        return;
+    }
+
     if (userSequence[userSequence.length - 1] !== sequence[userSequence.length - 1]) {
         endGame();
+        startGameButton.addEventListener('click', startGame);
         return;
     }
 
@@ -170,7 +166,7 @@ function checkUserSequence() {
         usersTable[playerName].score = score;
         if (score > highScore) {
             highScore = score;
-            usersTable[playerName].highScore = highScore; 
+            usersTable[playerName].highScore = highScore;
             document.getElementById('high-score').textContent = highScore;
         }
         updateUsersTable();
@@ -183,17 +179,19 @@ function checkUserSequence() {
 
 // Функция завершения игры
 function endGame() {
+    isPlaying = false;
     alert(`Игра окончена! Ваш счёт: ${score}`);
-    usersTable[playerName].score = 0; 
+    usersTable[playerName].score = 0;
     updateUsersTable();
+    document.getElementById('current-score').textContent = 0;
 }
 
 // Обработка выхода из игры
-logoutButton.addEventListener('click', function() {
-    localStorage.removeItem('currentUser'); 
+logoutButton.addEventListener('click', function () {
+    localStorage.removeItem('currentUser');
     playerName = '';
     gameContainer.style.display = 'none';
-    modal.style.display = 'flex'; 
-    nameInput.value = ''; 
-    welcomeMessage.textContent = ''; 
+    modal.style.display = 'flex';
+    nameInput.value = '';
+    welcomeMessage.textContent = '';
 });
