@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="icon" href="/assets/game-js.png" type="image/x-icon">
+</head>
+<body>
+    <!-- Модальное окно -->
+    <section id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Введите ваше имя:</h2>
+            <input type="text" id="name-input" placeholder="Введите ваше имя">
+            <p id="error-message" class="error-message" style="display: none;">Пожалуйста, введите ваше имя!</p>
+            <button id="submit-name">Зайти</button>
+        </div>
+    </section>
+
+    <!-- Основная страница игры -->
+    <section class="game-container" id="game-container" style="display: none;">
+        <p id="welcome-message"></p>
+        <h1>Привет, <span class="name" id="player-name"></span>! Добро пожаловать в Simon Memory Game!</h1>
+        <button class="button-start-game" id="start-game">Играть</button>
+        <div id="game-board">
+            <div class="color-button" id="green"></div>
+            <div class="color-button" id="red"></div>
+            <div class="color-button" id="yellow"></div>
+            <div class="color-button" id="blue"></div>
+        </div>
+        <div class="scoreboard">
+            <p>Score: <span id="current-score">0</span></p>
+            <p>Record: <span id="high-score">0</span></p>
+        </div>
+        <button id="logout" class="button-logout">Покинуть игру</button>
+    </section>
+
+    <script src="/assets/script.js"></script>
+</body>
+</html>
