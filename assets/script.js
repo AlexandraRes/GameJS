@@ -19,6 +19,12 @@ const welcomeMessage = document.getElementById('welcome-message');
 
 // Звуки
 const sounds = {
+    // green: new Audio('/assets/sounds/green.mp3'),
+    // red: new Audio('/assets/sounds/red.mp3'),
+    // yellow: new Audio('/assets/sounds/yellow.mp3'),
+    // blue: new Audio('/assets/sounds/blue.mp3'),
+    // click: new Audio('/assets/sounds/click.mp3'),
+    // start: new Audio('/assets/sounds/start-game.mp3')
     green: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/green.mp3'),
     red: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/red.mp3'),
     yellow: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/yellow.mp3'),
@@ -121,12 +127,34 @@ function nextRound() {
     sequence.push(nextColor);
 }
 
+// Функция для блокировки кнопок
+function disableButtons() {
+    document.querySelectorAll('.color-button').forEach(button => {
+        button.classList.add('disabled'); 
+        button.style.pointerEvents = 'none'; 
+    });
+}
+
+// Функция для разблокировки кнопок
+function enableButtons() {
+    document.querySelectorAll('.color-button').forEach(button => {
+        button.classList.remove('disabled');
+        button.style.pointerEvents = 'auto'; 
+    });
+}
+
 // Проигрывание последовательности цветов
 function playSequence() {
     let delay = 0;
-    sequence.forEach((color) => {
+    disableButtons();
+    sequence.forEach((color, index) => {
         setTimeout(() => {
             flashButton(color);
+            if (index === sequence.length - 1) {
+                setTimeout(() => {
+                    enableButtons();
+                }, 1000); 
+            }
         }, delay);
         delay += 1000;
     });
