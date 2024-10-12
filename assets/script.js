@@ -19,12 +19,12 @@ const welcomeMessage = document.getElementById('welcome-message');
 
 // Звуки
 const sounds = {
-    green: new Audio('/assets/sounds/green.mp3'),
-    red: new Audio('/assets/sounds/red.mp3'),
-    yellow: new Audio('/assets/sounds/yellow.mp3'),
-    blue: new Audio('/assets/sounds/blue.mp3'),
-    click: new Audio('/assets/sounds/click.mp3'),
-    start: new Audio('/assets/sounds/start-game.mp3')
+    green: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/green.mp3'),
+    red: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/red.mp3'),
+    yellow: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/yellow.mp3'),
+    blue: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/blue.mp3'),
+    click: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/click.mp3'),
+    start: new Audio('https://alexandrares.github.io/GameJS/assets/sounds/start-game.mp3')
 };
 
 // Загружаем таблицу пользователей из localStorage или создаем новую, если ее нет
