@@ -1,0 +1,14 @@
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th, .users-table td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+}
+
+.users-table th {
+    background-color: #f4f4f4;
+    text-align: left;
+}

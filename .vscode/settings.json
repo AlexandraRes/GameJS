@@ -1,0 +1,5 @@
+{
+    "prettier.arrowParens": "always",
+    "prettier.bracketSameLine": false,
+    "prettier.bracketSpacing": true
+}

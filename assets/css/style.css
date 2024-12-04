@@ -1,0 +1,84 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #ffdaf4;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* MENU */
+nav {
+    text-align: center;
+    font-size: 22px;
+    position: relative;
+}
+nav ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0;
+}
+nav ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    padding: 0;
+}
+nav ol li {
+    position: relative;
+}
+nav ul li {
+    position: relative;
+}
+nav ol li a {
+    text-decoration: none;
+    color: #a40417;
+    padding: 10px;
+    transition: color 0.3s;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #a40417;
+    padding: 10px;
+    transition: color 0.3s;
+}
+nav ol li a:hover {
+    color: #f9ff68;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+nav ul li a:hover {
+    color: #f9ff68;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+#menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+}
+#menu li {
+    font-size: 24px;
+    position: relative;
+}
+
+/* FOOTER */
+.footer {
+    padding-bottom: 10px;
+}
+.footer p {
+    text-align: center;
+    font-weight: bold;
+    background: linear-gradient(90deg, #cc0780, rgb(71, 224, 10), rgb(218, 5, 76), rgb(0, 17, 255));
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientShift 4s infinite;
+    background-size: 400%;
+}
